@@ -1,0 +1,7 @@
+Flask==2.0.3
+Werkzeug==2.0.3
+# Add any additional libraries needed for file conversion
+# e.g., pdf2docx, Pillow for image processing, etc.
+pdf2docx==0.5.6
+Pillow==9.2.0
+moviepy==2.1.2 

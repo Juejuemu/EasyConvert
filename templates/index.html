@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyConvert</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #drop-area {
+            border: 2px dashed #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #drop-area.hover {
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">EasyConvert - File Conversion Tool</h1>
+        <div id="drop-area">
+            <h4>Drag and drop files here</h4>
+            <p>or</p>
+            <input type="file" id="fileElem" multiple accept=".pdf,.jpg,.txt,.tiff,.mp4,.mp3,.xlsx,.csv" style="display:none;">
+            <label for="fileElem" class="btn btn-primary">Select Files</label>
+            <p>Possible conversions: PDF <> DOCX, TXT to PDF, JPG <> JPG, TIFF to JPG, MP4 <> AVI, MP3 <> WAV, XLSX <> CSV</p>
+        </div>
+        <div class="form-group">
+            <label for="sourceFormat">Source Format:</label>
+            <select id="sourceFormat" class="form-control" onchange="updateTargetFormats()">
+                <option value="">Select Source Format</option>
+                <option value="pdf">PDF</option>
+                <option value="txt">TXT</option>
+                <option value="jpg">JPG</option>
+                <option value="tiff">TIFF</option>
+                <option value="mp4">MP4</option>
+                <option value="mp3">MP3</option>
+                <option value="xlsx">XLSX</option>
+                <option value="csv">CSV</option>
+                <option value="avi">AVI</option>
+                <option value="wav">WAV</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="targetFormat">Target Format:</label>
+            <select id="targetFormat" class="form-control">
+                <option value="">Select Target Format</option>
+                <!-- Options will be populated based on source format selection -->
+            </select>
+        </div>
+        <button id="convertButton" class="btn btn-primary">Convert</button>
+        <div id="result" class="mt-3"></div>
+    </div>
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('fileElem');
+        const convertButton = document.getElementById('convertButton');
+        const resultDiv = document.getElementById('result');
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.add('hover'), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.remove('hover'), false);
+        });
+
+        // Handle dropped files
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            // Clear previous result message
+            resultDiv.innerText = '';
+
+            // Indicate successful upload
+            if (files.length > 0) {
+                resultDiv.innerText = `${files.length} file(s) uploaded successfully.`;
+            }
+            console.log(files);
+        }
+
+        function updateTargetFormats() {
+            const sourceFormat = document.getElementById('sourceFormat').value;
+            const targetFormatSelect = document.getElementById('targetFormat');
+            targetFormatSelect.innerHTML = ''; // Clear existing options
+
+            const formatPairs = {
+                pdf: ['docx', 'pdf'],
+                docx: ['pdf'],
+                txt: ['pdf'],
+                jpg: ['png', 'jpg'],
+                png: ['jpg'],
+                tiff: ['jpg'],
+                mp4: ['avi'],
+                avi: ['mp4'],
+                mp3: ['wav'],
+                wav: ['mp3'],
+                xlsx: ['csv'],
+                csv: ['xlsx']
+            };
+
+            if (sourceFormat in formatPairs) {
+                formatPairs[sourceFormat].forEach(target => {
+                    const option = document.createElement('option');
+                    option.value = target;
+                    option.textContent = target.toUpperCase();
+                    targetFormatSelect.appendChild(option);
+                });
+            }
+        }
+
+        convertButton.addEventListener('click', async () => {
+            const files = fileInput.files;
+            if (files.length === 0) {
+                alert("Please upload a file.");
+                return;
+            }
+
+            const sourceFormat = document.getElementById('sourceFormat').value;
+            const targetFormat = document.getElementById('targetFormat').value;
+
+            const formData = new FormData();
+            for (let file of files) {
+                formData.append('file', file);
+            }
+            formData.append('sourceFormat', sourceFormat);
+            formData.append('targetFormat', targetFormat);
+
+            const response = await fetch('/convert', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                resultDiv.innerText = result.message || "Conversion successful!";
+            } else {
+                alert(result.error || "Conversion failed!");
+            }
+        });
+    </script>
+</body>
+</html> 
