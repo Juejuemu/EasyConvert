@@ -1,8 +1,6 @@
 # EasyConvert
 
-This tool was created to fulfill the course "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
-
-EasyConvert is a file conversion tool that allows users to convert various file formats easily. The application currently supports the following conversions:
+EasyConvert is a file conversion tool that allows users to convert various file formats easily. It was created to fulfill the course "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
 
 ## Supported Conversions
 
