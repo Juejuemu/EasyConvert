@@ -24,9 +24,9 @@
         <div id="drop-area">
             <h4>Drag and drop files here</h4>
             <p>or</p>
-            <input type="file" id="fileElem" multiple accept=".pdf,.jpg,.txt,.tiff,.mp4,.mp3,.xlsx,.csv" style="display:none;">
+            <input type="file" id="fileElem" multiple accept=".pdf,.txt,.jpg,.avi,.wav" style="display:none;">
             <label for="fileElem" class="btn btn-primary">Select Files</label>
-            <p>Possible conversions: PDF <> DOCX, TXT to PDF, JPG <> JPG, TIFF to JPG, MP4 <> AVI, MP3 <> WAV, XLSX <> CSV</p>
+            <p>Possible conversions: PDF to DOCX, TXT to PDF, JPG to PNG, AVI to MP4, WAV to MP3</p>
         </div>
         <div class="form-group">
             <label for="sourceFormat">Source Format:</label>
@@ -35,11 +35,6 @@
                 <option value="pdf">PDF</option>
                 <option value="txt">TXT</option>
                 <option value="jpg">JPG</option>
-                <option value="tiff">TIFF</option>
-                <option value="mp4">MP4</option>
-                <option value="mp3">MP3</option>
-                <option value="xlsx">XLSX</option>
-                <option value="csv">CSV</option>
                 <option value="avi">AVI</option>
                 <option value="wav">WAV</option>
             </select>
@@ -110,18 +105,11 @@
             targetFormatSelect.innerHTML = ''; // Clear existing options
 
             const formatPairs = {
-                pdf: ['docx', 'pdf'],
-                docx: ['pdf'],
+                pdf: ['docx'],
                 txt: ['pdf'],
-                jpg: ['png', 'jpg'],
-                png: ['jpg'],
-                tiff: ['jpg'],
-                mp4: ['avi'],
+                jpg: ['png'],
                 avi: ['mp4'],
-                mp3: ['wav'],
-                wav: ['mp3'],
-                xlsx: ['csv'],
-                csv: ['xlsx']
+                wav: ['mp3']
             };
 
             if (sourceFormat in formatPairs) {
