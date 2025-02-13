@@ -1,6 +1,6 @@
 # EasyConvert
 
-This tool was created to fulfill the course "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
+This tool was created to fulfill the course requirements for "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
 
 EasyConvert is a file conversion tool that allows users to convert various file formats easily. The application supports conversions between formats such as PDF, DOCX, TXT, JPG, PNG, MP4, AVI, MP3, WAV, XLSX, and CSV.
 
