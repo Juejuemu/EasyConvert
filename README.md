@@ -1,19 +1,22 @@
 # EasyConvert
 
-This tool was created to fulfill the course requirements for "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
+This tool was created to fulfill the course "Software Testing Principles & Techniques" at Harrisburg University of Science and Technology.
 
-EasyConvert is a file conversion tool that allows users to convert various file formats easily. The application supports conversions between formats such as PDF, DOCX, TXT, JPG, PNG, MP4, AVI, MP3, WAV, XLSX, and CSV.
+EasyConvert is a file conversion tool that allows users to convert various file formats easily. The application currently supports the following conversions:
+
+## Supported Conversions
+
+- **PDF to DOCX**
+- **TXT to PDF**
+- **JPG to PNG**
+- **AVI to MP4**
+- **WAV to MP3**
 
 ## Features
 
-- Convert PDF to DOCX and vice versa
-- Convert TXT files to PDF
-- Convert JPG to PNG and vice versa
-- Convert TIFF to JPG
-- Convert MP4 to AVI and vice versa
-- Convert MP3 to WAV and vice versa
-- Convert XLSX to CSV and vice versa
 - User-friendly interface with drag-and-drop functionality
+- Simple file selection for conversions
+- Fast and efficient conversion process
 
 ## Requirements
 
@@ -25,7 +28,6 @@ EasyConvert is a file conversion tool that allows users to convert various file 
 - Pydub
 - pdf2docx
 - FPDF (for TXT to PDF conversion)
-- docx2pdf (for DOCX to PDF conversion)
 
 ## Installation
 
@@ -75,10 +77,8 @@ EasyConvert is a file conversion tool that allows users to convert various file 
 
 ## Possible Conversions
 
-- PDF ↔ DOCX
-- TXT → PDF
-- JPG ↔ PNG
-- TIFF → JPG
-- MP4 ↔ AVI
-- MP3 ↔ WAV
-- XLSX ↔ CSV
+- PDF to DOCX
+- TXT to PDF
+- JPG to PNG
+- AVI to MP4
+- WAV to MP3
