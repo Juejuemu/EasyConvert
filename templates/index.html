@@ -24,9 +24,9 @@
         <div id="drop-area">
             <h4>Drag and drop files here</h4>
             <p>or</p>
-            <input type="file" id="fileElem" multiple accept=".pdf,.txt,.jpg,.avi,.wav" style="display:none;">
+            <input type="file" id="fileElem" multiple accept=".pdf,.txt,.jpg,.avi,.wav,.xlsx,.csv" style="display:none;">
             <label for="fileElem" class="btn btn-primary">Select Files</label>
-            <p>Possible conversions: PDF to DOCX, TXT to PDF, JPG to PNG, AVI to MP4, WAV to MP3</p>
+            <p>Possible conversions: PDF to DOCX, TXT to PDF, JPG to PNG, AVI to MP4, WAV to MP3, XLSX to CSV, CSV to XLSX</p>
         </div>
         <div class="form-group">
             <label for="sourceFormat">Source Format:</label>
@@ -37,6 +37,8 @@
                 <option value="jpg">JPG</option>
                 <option value="avi">AVI</option>
                 <option value="wav">WAV</option>
+                <option value="xlsx">XLSX</option>
+                <option value="csv">CSV</option>
             </select>
         </div>
         <div class="form-group">
@@ -109,7 +111,9 @@
                 txt: ['pdf'],
                 jpg: ['png'],
                 avi: ['mp4'],
-                wav: ['mp3']
+                wav: ['mp3'],
+                xlsx: ['csv'],
+                csv: ['xlsx']
             };
 
             if (sourceFormat in formatPairs) {

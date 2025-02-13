@@ -11,6 +11,8 @@ EasyConvert is a file conversion tool that allows users to convert various file 
 - **JPG to PNG**
 - **AVI to MP4**
 - **WAV to MP3**
+- **XLSX to CSV**
+- **CSV to XLSX**
 
 ## Features
 
@@ -82,3 +84,5 @@ EasyConvert is a file conversion tool that allows users to convert various file 
 - JPG to PNG
 - AVI to MP4
 - WAV to MP3
+- XLSX to CSV
+- CSV to XLSX

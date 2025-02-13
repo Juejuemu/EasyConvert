@@ -3,6 +3,7 @@ from PIL import Image
 import os
 from moviepy import *
 import pydub
+import pandas as pd
 
 # Create a directory for converted files if it doesn't exist
 os.makedirs('converted_files', exist_ok=True)
@@ -89,6 +90,36 @@ def convert_wav_to_mp3(audio_file):
     except Exception as e:
         return str(e)
 
+def convert_xlsx_to_csv(xlsx_file):
+    """Convert XLSX to CSV."""
+    try:
+        xlsx_path = f'temp_{xlsx_file.filename}'
+        xlsx_file.save(xlsx_path)
+        csv_file = os.path.join('converted_files', xlsx_path.replace('.xlsx', '.csv'))
+        
+        df = pd.read_excel(xlsx_path)
+        df.to_csv(csv_file, index=False)
+        
+        os.remove(xlsx_path)
+        return csv_file
+    except Exception as e:
+        return str(e)
+
+def convert_csv_to_xlsx(csv_file):
+    """Convert CSV to XLSX."""
+    try:
+        csv_path = f'temp_{csv_file.filename}'
+        csv_file.save(csv_path)
+        xlsx_file = os.path.join('converted_files', csv_path.replace('.csv', '.xlsx'))
+        
+        df = pd.read_csv(csv_path)
+        df.to_excel(xlsx_file, index=False)
+        
+        os.remove(csv_path)
+        return xlsx_file
+    except Exception as e:
+        return str(e)
+
 def convert_files(files, source_format, target_format):
     """Convert files based on source and target formats."""
     converted_files = []
@@ -107,6 +138,12 @@ def convert_files(files, source_format, target_format):
             converted_files.append(result)
         elif source_format == 'wav' and target_format == 'mp3' and file.filename.endswith('.wav'):
             result = convert_wav_to_mp3(file)
+            converted_files.append(result)
+        elif source_format == 'xlsx' and target_format == 'csv' and file.filename.endswith('.xlsx'):
+            result = convert_xlsx_to_csv(file)
+            converted_files.append(result)
+        elif source_format == 'csv' and target_format == 'xlsx' and file.filename.endswith('.csv'):
+            result = convert_csv_to_xlsx(file)
             converted_files.append(result)
         else:
             converted_files.append(f"Unsupported conversion from {source_format} to {target_format} for {file.filename}.")
